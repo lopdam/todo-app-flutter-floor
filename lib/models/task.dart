@@ -15,7 +15,7 @@ class Task {
   //Done DateTime
   final int deadline;
 
-  final bool done;
+  bool done;
 
   Task(
       {this.id,

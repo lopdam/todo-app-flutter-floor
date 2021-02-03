@@ -163,6 +163,20 @@ class _$TaskDao extends TaskDao {
   }
 
   @override
+  Stream<List<Task>> findAllTasknotDoneStream() {
+    return _queryAdapter.queryListStream('SELECT * FROM Task WHERE done=0',
+        queryableName: 'Task',
+        isView: false,
+        mapper: (Map<String, dynamic> row) => Task(
+            id: row['id'] as int,
+            title: row['title'] as String,
+            description: row['description'] as String,
+            priority: row['priority'] as int,
+            deadline: row['deadline'] as int,
+            done: row['done'] == null ? null : (row['done'] as int) != 0));
+  }
+
+  @override
   Future<Task> findTaskById(int id) async {
     return _queryAdapter.query('SELECT * FROM Task WHERE id = ?',
         arguments: <dynamic>[id],
